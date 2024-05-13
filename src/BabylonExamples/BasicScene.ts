@@ -1,4 +1,5 @@
-import { Scene, Engine, FreeCamera, Vector3, HemisphericLight, MeshBuilder, Color3 } from "@babylonjs/core";
+import { Scene, Engine, FreeCamera, Vector3, HemisphericLight, MeshBuilder, Color3, SceneLoader } from "@babylonjs/core";
+import "@babylonjs/loaders"
 
 export class BasicScene{
     scene: Scene;
@@ -28,6 +29,15 @@ export class BasicScene{
         const capsule = MeshBuilder.CreateCapsule("capsule", { tessellation:16, subdivisions:6, height: 2, radius: 0.5 }, this.scene);
         capsule.position = new Vector3(-1, 1, 0);
 
+        this.CreateModel();
+
         return scene;
+    }
+
+    async CreateModel():Promise<void>{
+        const {meshes} = await SceneLoader.ImportMeshAsync("", "./model/", "Teapot.obj");
+        console.log("meshes", meshes);
+        meshes[0].position = new Vector3(0, 1, -0.5);
+        meshes[0].scaling = new Vector3(0.5, 0.5, 0.5);
     }
 }
