@@ -16,7 +16,13 @@ import {
     PassPostProcess,
     Color4,
     AbstractMesh} from "@babylonjs/core";
-import { AdvancedDynamicTexture, Button, ColorPicker, Control, InputText, Rectangle, ScrollViewer, Slider, StackPanel, TextBlock, TextWrapping } from "@babylonjs/gui";
+import { 
+    AdvancedDynamicTexture, 
+    ColorPicker, 
+    Control, 
+    Slider, 
+    StackPanel, 
+    TextBlock } from "@babylonjs/gui";
 import "@babylonjs/loaders"
 
 export class BasicScene{
