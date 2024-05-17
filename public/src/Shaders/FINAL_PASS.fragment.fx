@@ -16,6 +16,9 @@ void main(void)
     vec4 caustic = texture2D(outlineTexture, vUV);
 
     // mixes colors from first pass texture and second pass texture
-    gl_FragColor = clamp(mix(first, caustic, 0.5), 0.0, 1.0);
+    if (length(caustic) > 1.1)
+        gl_FragColor = clamp(mix(first, caustic, 0.5), 0.0, 1.0);
+    else
+        gl_FragColor = first;
     gl_FragColor.a = 1.0;
 }
