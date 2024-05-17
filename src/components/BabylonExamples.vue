@@ -1,6 +1,6 @@
 <template>
 <div>
-<h3> Babylon Examples </h3>
+<h3> Babylon Scene </h3>
 <canvas></canvas>
 </div>
 </template>
