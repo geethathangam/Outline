@@ -24,7 +24,7 @@ npm run lint
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
 
-Requirements:
+### Requirements:
 
 Visual studio Code v1.89.1(Recommended Latest version)
 nodejs v20.13.1(Recommended Latest version)
@@ -38,10 +38,10 @@ Install following packages: babylonjs, babylon-loaders, babylon-gui
 Execute "npm run serve" command in the inbuilt terminal to build and run the project.
 
 
-Details about the project:
+### Details about the project:
 
 The HTML contains a simple canvas which is used to render the graphics.
-The actual script is implemented in Transcript file.
+The actual script is implemented in Typescript file.
 The script contains following code:
     - Sets up the scene, camera, engine
     - Adds basic shapes like Sphere, capsule, plane
@@ -55,11 +55,11 @@ The script contains following code:
     - Included slider to control the width of the highlight and 
       color picker to set the color of the highlight.
 
-Alternate approaches:
+### Alternate approaches:
     - Render the highlight directly into the frame buffer in the first pass and 
       actual object in the second pass. Combine the textures in the final pass.
 
-Inbuilt Engine capabilities:
+### Inbuilt Engine capabilities:
     - The Babylonjs has the capability to render the outline of the object
       which could be occluded by the other objects.
 	#1. HighlightLayer

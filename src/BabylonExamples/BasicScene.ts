@@ -157,6 +157,7 @@ export class BasicScene{
         return meshes[0];
     }
 
+    // Additional task
     CreateUIPanel(outlineMaterial : ShaderMaterial){
         const advancedTexture = AdvancedDynamicTexture.CreateFullscreenUI("UI");
         const panel = new StackPanel();
