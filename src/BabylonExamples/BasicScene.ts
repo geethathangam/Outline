@@ -16,12 +16,12 @@ import {
     PassPostProcess,
     Color4,
     AbstractMesh} from "@babylonjs/core";
-import { 
-    AdvancedDynamicTexture, 
-    ColorPicker, 
-    Control, 
-    Slider, 
-    StackPanel, 
+import {
+    AdvancedDynamicTexture,
+    ColorPicker,
+    Control,
+    Slider,
+    StackPanel,
     TextBlock } from "@babylonjs/gui";
 import "@babylonjs/loaders"
 
@@ -162,7 +162,7 @@ export class BasicScene{
         const advancedTexture = AdvancedDynamicTexture.CreateFullscreenUI("UI");
         const panel = new StackPanel();
         panel.isVertical = false;
-        panel.top = "-180px";
+        panel.top = "-40%";
         panel.paddingLeft = "10px";
         panel.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;
         advancedTexture.addControl(panel);
@@ -183,13 +183,11 @@ export class BasicScene{
         slider.background = "grey";
         slider.left = "120px";
         slider.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;
-        slider.verticalAlignment = Control.VERTICAL_ALIGNMENT_CENTER;
         slider.onValueChangedObservable.add(function (value) {
-            // sphere.scaling = unitVec.scale(value);
             outlineMaterial.setFloat("outlineSize", (value * 0.05));
         });
         panel.addControl(slider);
-    
+
         const tbEnd = new TextBlock();
         tbEnd.width = "30px";
         tbEnd.color = "yellow";
@@ -200,9 +198,8 @@ export class BasicScene{
         picker.width = "100px";
         picker.height = "100px";
         picker.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;
-        picker.verticalAlignment = Control.VERTICAL_ALIGNMENT_TOP;
-        picker.left = "20px";
-        picker.top = "50px";
+        picker.left = "35px";
+        picker.top = "-25%";
         picker.onValueChangedObservable.add(function(value) { // value is a color3
             outlineMaterial.setColor4("outlineColor", new Color4(value.r, value.g, value.b, 1.0));
         });
