@@ -50,7 +50,7 @@ export class BasicScene{
         // Default intensity is 1. Let's dim the light a small amount
         light.intensity = 0.7;
 
-        // Our built-in 'ground' shape.
+        // Task 1.1 - Create sample mesh using in-built meshbuilder.
         const ground = MeshBuilder.CreateGround("ground", { width: 7, height: 7 }, this.scene);
         const grassTexture = new Texture("grass.jpg", this.scene);
         const groundMat = new StandardMaterial("groundMat", this.scene);
@@ -69,6 +69,7 @@ export class BasicScene{
         sphere.actionManager = this.scene.actionManager;
         capsule.actionManager = this.scene.actionManager;
 
+        // Task 2.2 - Outline script
         // first pass, render scene with original materials.
         // Copy the framebuffer into the post process for further use.
         const imagePass = new PassPostProcess("imagePass", 1.0, camera, Texture.NEAREST_SAMPLINGMODE, this.engine);
@@ -116,6 +117,7 @@ export class BasicScene{
             effect.setTexture('outlineTexture', renderTarget);
         };
 
+        // Task 2.1 - Include Hover action on mesh
         actionManager.registerAction(new ExecuteCodeAction(ActionManager.OnPointerOverTrigger, function(ev){
             // this.scene.hoverCursor = "pointer";
             const mesh = ev.meshUnderPointer;
@@ -144,6 +146,7 @@ export class BasicScene{
         });
     }
 
+    // Task 1.2 & 1.3 - Import obj file
     async CreateModel():Promise<AbstractMesh>{
         const {meshes} = await SceneLoader.ImportMeshAsync("", "./model/", "Teapot.obj");
         console.log("meshes", meshes);
