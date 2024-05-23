@@ -1,7 +1,6 @@
 precision highp float;
 
-uniform vec4 outlineColor;
-
 void main(void) {
-    gl_FragColor = outlineColor;
+    // Draw the selected mesh in white color into the render texture
+    gl_FragColor = vec4(1., 1., 1., 1.);
 }

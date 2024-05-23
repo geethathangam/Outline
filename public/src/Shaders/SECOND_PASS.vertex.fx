@@ -7,13 +7,12 @@ attribute vec2 uv;
 
 // Uniforms
 uniform mat4 worldViewProjection;
-uniform float outlineSize;
 
 void main() {
 
     vec4 p = vec4( position, 1. );
 
-    // Vertex extrusion. Extending the vertex of the mesh in the direction of the normal.
-    // This results in expansion of the mesh providing the illusion of outline.
-    gl_Position = worldViewProjection * (p + normalize(vec4(normal, 0)) * outlineSize);
+    // Draw the selected mesh as it is into the render texture.
+    // Following line converts the point from local space to projection space
+    gl_Position = worldViewProjection * p;
 }

@@ -15,7 +15,8 @@ import {
     ExecuteCodeAction,
     PassPostProcess,
     Color4,
-    AbstractMesh} from "@babylonjs/core";
+    AbstractMesh,
+    Color3} from "@babylonjs/core";
 import {
     AdvancedDynamicTexture,
     ColorPicker,
@@ -24,6 +25,7 @@ import {
     StackPanel,
     TextBlock } from "@babylonjs/gui";
 import "@babylonjs/loaders"
+import { effect } from "vue";
 
 export class BasicScene{
     scene: Scene;
@@ -83,11 +85,10 @@ export class BasicScene{
                 uniforms: ['worldViewProjection', 'outlineColor', 'outlineSize']
             }
         );
-        outlineMaterial.setColor4("outlineColor", new Color4(1, 0, 0, 1.));
-        outlineMaterial.setFloat("outlineSize", 0.1);
 
         // The render texture. We'll render the scene with highlighted meshes and apply outline shader to this texture.
         const renderTarget = new RenderTargetTexture('outline texture', 512, this.scene);
+        renderTarget.clearColor = new Color4(0, 0, 0, 0);
         this.scene.customRenderTargets.push(renderTarget);
 
         renderTarget.setMaterialForRendering(sphere, outlineMaterial);
@@ -105,7 +106,7 @@ export class BasicScene{
         const finalPass = new PostProcess(
             'Final compose shader',
             'FINAL_PASS',  // shader
-            null, // attributes
+            ['outlineColor', 'outlineSize'], // attributes
             ['outlineTexture'], // textures
             1.0,  // options
             camera, // camera
@@ -116,7 +117,6 @@ export class BasicScene{
             // update the output from final pass to the outline texture.
             effect.setTexture('outlineTexture', renderTarget);
         };
-
         // Task 2.1 - Include Hover action on mesh
         actionManager.registerAction(new ExecuteCodeAction(ActionManager.OnPointerOverTrigger, function(ev){
             // this.scene.hoverCursor = "pointer";
@@ -138,7 +138,7 @@ export class BasicScene{
             }
             }));
 
-        this.CreateUIPanel(outlineMaterial);
+        this.CreateUIPanel(finalPass);
 
         // update time on shader
         this.engine.runRenderLoop(() => {
@@ -158,7 +158,7 @@ export class BasicScene{
     }
 
     // Additional task
-    CreateUIPanel(outlineMaterial : ShaderMaterial){
+    CreateUIPanel(finalPass : PostProcess){
         const advancedTexture = AdvancedDynamicTexture.CreateFullscreenUI("UI");
         const panel = new StackPanel();
         panel.isVertical = false;
@@ -176,7 +176,7 @@ export class BasicScene{
         const slider = new Slider();
         slider.minimum = 1;
         slider.maximum = 10;
-        slider.value = 2;
+        slider.value = 1;
         slider.height = "15px";
         slider.width = "130px";
         slider.color = "yellow";
@@ -184,7 +184,8 @@ export class BasicScene{
         slider.left = "120px";
         slider.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;
         slider.onValueChangedObservable.add(function (value) {
-            outlineMaterial.setFloat("outlineSize", (value * 0.05));
+            const effect = finalPass.getEffect();
+            effect.setFloat('outlineSize', 1024./value);
         });
         panel.addControl(slider);
 
@@ -201,7 +202,8 @@ export class BasicScene{
         picker.left = "35px";
         picker.top = "-25%";
         picker.onValueChangedObservable.add(function(value) { // value is a color3
-            outlineMaterial.setColor4("outlineColor", new Color4(value.r, value.g, value.b, 1.0));
+            const effect = finalPass.getEffect();
+            effect.setColor4('outlineColor', new Color3(value.r, value.g, value.b), 1.);
         });
         advancedTexture.addControl(picker);
     }
