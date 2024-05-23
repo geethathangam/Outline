@@ -117,6 +117,15 @@ export class BasicScene{
             // update the output from final pass to the outline texture.
             effect.setTexture('outlineTexture', renderTarget);
         };
+
+        finalPass.onActivateObservable.addOnce(() => {
+            console.log("final pass activated");
+            setTimeout(() => {
+                finalPass.getEffect().setFloat('outlineSize', 1024.);
+                finalPass.getEffect().setColor4('outlineColor', new Color3(1., 0., 0.), 1.);
+            }, 100);
+        })
+
         // Task 2.1 - Include Hover action on mesh
         actionManager.registerAction(new ExecuteCodeAction(ActionManager.OnPointerOverTrigger, function(ev){
             // this.scene.hoverCursor = "pointer";
