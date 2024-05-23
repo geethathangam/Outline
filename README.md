@@ -49,8 +49,8 @@ The script contains following code:
 - Used multipass shaders to highlight the hovered object. 
 (The highlight of the object renders on top of every other object. It is not rendered as an actual outline)
 #1. The actual objects are rendered in the framebuffer.
-#2. The vertex extrusion for the hovered object occurs in the second pass.
-#3. The above two steps are combined in the third and final pass.
+#2. The silhouette of the selected object is rendered through the second buffer in the render texture.
+#3. In the final pass, the outline pixels are colored based on the color intensity from the adjacent pixels of the texture from second pass. Remaining pixels are colored as it is in the frame buffer.
 - Included slider to control the width of the highlight and 
       color picker to set the color of the highlight.
 
