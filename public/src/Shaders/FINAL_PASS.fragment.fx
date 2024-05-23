@@ -24,7 +24,7 @@ void main(void)
     }
     else {
         // outline texture contains the silhoutte of selected mesh
-        // Calculate the color of the adjacent pixels in the outline texture
+        // Calculate the color based on the alpha value in adjacent pixels in the outline texture
         float a = texture2D(outlineTexture, vec2(vUV.x + offset, vUV.y)).a +
             texture2D(outlineTexture, vec2(vUV.x, vUV.y - offset)).a +
             texture2D(outlineTexture, vec2(vUV.x - offset, vUV.y)).a +
@@ -35,5 +35,5 @@ void main(void)
         else {
             gl_FragColor = tex;
         }
-	}
+    }
 }
